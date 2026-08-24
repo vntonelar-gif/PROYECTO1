@@ -1,0 +1,168 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #5b7085;
+  color: #0e1f46e7;
+}
+
+.app {
+  min-height: 100vh;
+}
+
+.encabezado {
+  background-color: #1c2a44;
+  color: rgb(211, 226, 243);
+  padding: 30px 50px;
+}
+
+.encabezado h1 {
+  margin: 0;
+  font-size: 32px;
+}
+
+.encabezado p {
+  margin: 8px 0 0;
+  font-size: 16px;
+}
+
+.contenido {
+  width: 90%;
+  max-width: 1100px;
+  margin: 35px auto;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 25px;
+}
+
+.tarjeta {
+  background-color: rgb(219, 234, 255);
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgb(192, 230, 255); /* ---------------------------------------- brillitos */
+}
+
+.tarjeta h2 {
+  margin-top: 0;
+  color: #071435;
+}
+
+.grupo {
+  margin-bottom: 18px;
+}
+
+.grupo label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+
+/*letras cajitas de eleccion ------------------------------------------------------------------------------------*/
+.grupo input,
+.grupo select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #c2e9ff;
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: #ffffff !important; /* !important fuerza a sobreescribir el modo oscuro */
+  color: #26394e !important;
+
+
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #a01010;
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: #cdf5ff; /* <- Cambia este código HEX por el color de fondo que desees */
+  color: #0f1422;            /* <- Opcional: cambia el color de las letras al escribir */
+
+
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.grupo input:focus {
+  outline: none;
+  border-color: #1f3c88;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  background-color: #233b5a;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #162d68;
+}
+
+.tabla-contenedor {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 12px 8px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+th {
+  background-color: #f0f2f5;
+  color: #1f3c88;
+}
+
+@media (max-width: 800px) {
+  .contenido {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Ancho y fondo de la barra de desplazamiento */
+.grupo select::-webkit-scrollbar {
+  width: 14px;
+  background-color: #a8bedf80; 
+}
+
+/* Color de la barra/deslizador */
+.grupo select::-webkit-scrollbar-thumb {
+  background-color: #1f3c88; /* Cambia este color al que gustes */
+  border-radius: 4px;
+}
+
+/* Fondo de las flechas superiores e inferiores */
+.grupo select::-webkit-scrollbar-button {
+  background-color: #303f68c4; /* Cambia el color del contenedor de las flechas */
+  display: block;
+}
+
+/* Color de la flecha arriba */
+.grupo select::-webkit-scrollbar-button:single-button:vertical:decrement {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="white"><path d="M12 8l-6 6h12z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Color de la flecha abajo */
+.grupo select::-webkit-scrollbar-button:single-button:vertical:increment {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="white"><path d="M12 16l6-6H6z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: center;
+}
