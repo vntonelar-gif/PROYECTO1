@@ -12,16 +12,18 @@ Aplicacion full stack para administrar informacion academica: usuarios, sedes, c
 
 ```text
 Proyecto_GestionAcademica/
-├── backend/
-│   ├── models/       # Esquemas de Mongoose
-│   ├── routes/       # Rutas de la API
-│   └── server.js     # Entrada del servidor Express
-├── public/           # Recursos estaticos
-├── src/              # Frontend React
-├── .env.example      # Variables de entorno requeridas
-├── index.html        # Entrada HTML de Vite
-├── package.json      # Scripts y dependencias
-└── README.md
+|-- backend/
+|   |-- models/       # Esquemas de Mongoose
+|   |-- routes/       # Rutas de la API
+|   `-- server.js     # Entrada del servidor Express
+|-- public/           # Recursos estaticos
+|-- src/              # Frontend React
+|-- docs/             # Guias de trabajo del equipo
+|-- .github/          # Plantillas para Issues y Pull Requests
+|-- .env.example      # Variables de entorno requeridas
+|-- index.html        # Entrada HTML de Vite
+|-- package.json      # Scripts y dependencias
+`-- README.md
 ```
 
 ## Configuracion local
@@ -48,6 +50,21 @@ npm run server   # Levanta la API Express
 npm run build    # Genera build de produccion del frontend
 npm run lint     # Ejecuta ESLint
 ```
+
+## Trabajo en equipo
+
+El proyecto usa un flujo Git simple, pensado para aprendizaje:
+
+- `main` se mantiene como rama estable.
+- Cada tarea se trabaja en una rama propia.
+- Las tareas se registran como Issues.
+- Los cambios se integran mediante Pull Request.
+
+Guias del equipo:
+
+- [Estructura del proyecto](docs/ESTRUCTURA_PROYECTO.md)
+- [Gobierno del proyecto](docs/GOBIERNO_PROYECTO.md)
+- [Flujo Git simple](docs/FLUJO_GIT_SIMPLE.md)
 
 ## API principal
 
