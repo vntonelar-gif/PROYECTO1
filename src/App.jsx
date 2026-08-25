@@ -4,7 +4,7 @@ import "./App.css";
 function App() {
   const [estudiantes, setEstudiantes] = useState([]);
   const [docentes, setDocentes] = useState([]);
-  const [usuarios, setUsuarios] = useState([]);
+  const [, setUsuarios] = useState([]);
   const [sedes, setSedes] = useState([]);
   const [carreras, setCarreras] = useState([]);
   const [planesEstudio, setPlanesEstudio] = useState([]);

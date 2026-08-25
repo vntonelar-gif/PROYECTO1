@@ -1,16 +1,76 @@
-# React + Vite
+# Proyecto Gestion Academica
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicacion full stack para administrar informacion academica: usuarios, sedes, carreras, planes de estudio, asignaturas, periodos, matriculas, secciones, bloques horarios e inscripciones.
 
-Currently, two official plugins are available:
+## Tecnologias
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- React + Vite para el frontend.
+- Express para la API REST.
+- MongoDB + Mongoose para persistencia.
 
-## React Compiler
+## Estructura
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```text
+Proyecto_GestionAcademica/
+├── backend/
+│   ├── models/       # Esquemas de Mongoose
+│   ├── routes/       # Rutas de la API
+│   └── server.js     # Entrada del servidor Express
+├── public/           # Recursos estaticos
+├── src/              # Frontend React
+├── .env.example      # Variables de entorno requeridas
+├── index.html        # Entrada HTML de Vite
+├── package.json      # Scripts y dependencias
+└── README.md
+```
 
-## Expanding the ESLint configuration
+## Configuracion local
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. Instalar dependencias:
+
+```bash
+npm install
+```
+
+2. Crear el archivo `.env` a partir de `.env.example`:
+
+```bash
+cp .env.example .env
+```
+
+3. Ajustar `MONGO_URI` si se usa una instancia distinta de MongoDB.
+
+## Comandos
+
+```bash
+npm run dev      # Levanta el frontend Vite
+npm run server   # Levanta la API Express
+npm run build    # Genera build de produccion del frontend
+npm run lint     # Ejecuta ESLint
+```
+
+## API principal
+
+La API se monta en `http://localhost:3000/api`.
+
+- `/api/usuarios`
+- `/api/sedes`
+- `/api/carreras`
+- `/api/planes-estudio`
+- `/api/asignaturas`
+- `/api/periodos-academicos`
+- `/api/matriculas`
+- `/api/secciones`
+- `/api/bloques-horarios`
+- `/api/inscripciones`
+- `/api/historial-academico`
+- `/api/estudiantes`
+- `/api/docentes`
+
+## Pendientes antes de produccion
+
+- Hashear contrasenas y no exponerlas en respuestas de usuario.
+- Agregar autenticacion y autorizacion por rol.
+- Separar `App.jsx` en componentes mas pequenos.
+- Reemplazar URLs fijas del frontend por una variable de entorno.
+- Agregar pruebas para validaciones criticas de inscripciones y horarios.
