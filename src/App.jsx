@@ -106,6 +106,8 @@ const [formularioLogin, setFormularioLogin] = useState({
 });
 
 const [usuarioActual, setUsuarioActual] = useState(null);
+const [mensajeLogin, setMensajeLogin] = useState("");
+const [cargandoLogin, setCargandoLogin] = useState(false);
 
   const [formulario, setFormulario] = useState({
     nombre: "",
@@ -179,6 +181,17 @@ const cargarCarreras = async () => {
 
   const iniciarSesion = async (evento) => {
   evento.preventDefault();
+  setMensajeLogin("");
+
+  const email = formularioLogin.email.trim();
+  const password = formularioLogin.password.trim();
+
+  if (!email || !password) {
+    setMensajeLogin("Ingresa correo y contrasena para continuar.");
+    return;
+  }
+
+  setCargandoLogin(true);
 
   try {
     const respuesta = await fetch(
@@ -188,14 +201,17 @@ const cargarCarreras = async () => {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(formularioLogin)
+        body: JSON.stringify({
+          email,
+          password
+        })
       }
     );
 
-    const datos = await respuesta.json();
+    const datos = await respuesta.json().catch(() => ({}));
 
     if (!respuesta.ok) {
-      throw new Error(datos.mensaje);
+      throw new Error(datos.mensaje || "No se pudo iniciar sesion");
     }
 
     setUsuarioActual(datos.usuario);
@@ -205,11 +221,13 @@ const cargarCarreras = async () => {
       password: ""
     });
 
-    alert(`Bienvenido/a ${datos.usuario.nombre}`);
+    setMensajeLogin("Sesion iniciada correctamente.");
 
   } catch (error) {
     console.error(error);
-    alert(error.message);
+    setMensajeLogin(error.message);
+  } finally {
+    setCargandoLogin(false);
   }
 };
   const guardarUsuario = async (evento) => {
@@ -749,6 +767,10 @@ const cargarInscripciones = async () => {
   // =========================
 
   useEffect(() => {
+    if (!usuarioActual) {
+      return;
+    }
+
     cargarEstudiantes();
     cargarDocentes();
     cargarUsuarios();
@@ -761,7 +783,7 @@ const cargarInscripciones = async () => {
     cargarSecciones();
     cargarBloquesHorarios();
     cargarInscripciones();
-  }, []);
+  }, [usuarioActual]);
 
 const seccionesFiltradas = secciones.filter((seccion) => {
   return (
@@ -820,9 +842,85 @@ const guardarInscripcion = async (evento) => {
   }
 };
 
+const manejarCambioLogin = (evento) => {
+  setFormularioLogin({
+    ...formularioLogin,
+    [evento.target.name]: evento.target.value
+  });
+};
+
+const cerrarSesion = () => {
+  setUsuarioActual(null);
+  setMensajeLogin("");
+};
+
   // =========================
   // INTERFAZ
   // =========================
+
+  if (!usuarioActual) {
+    return (
+      <div className="app">
+        <header className="encabezado">
+          <h1>Gestion Academica</h1>
+          <p>Acceso al sistema academico</p>
+        </header>
+
+        <main className="login-contenedor">
+          <section className="login-panel">
+            <div className="login-presentacion">
+              <p className="etiqueta">Ingreso de usuarios</p>
+              <h2>Iniciar sesion</h2>
+              <p>
+                Usa un usuario registrado para entrar al sistema de gestion
+                academica.
+              </p>
+            </div>
+
+            <form className="login-formulario" onSubmit={iniciarSesion}>
+              <div className="grupo">
+                <label htmlFor="login-email">Correo electronico</label>
+                <input
+                  id="login-email"
+                  type="email"
+                  name="email"
+                  value={formularioLogin.email}
+                  onChange={manejarCambioLogin}
+                  placeholder="usuario@correo.cl"
+                  autoComplete="email"
+                  required
+                />
+              </div>
+
+              <div className="grupo">
+                <label htmlFor="login-password">Contrasena</label>
+                <input
+                  id="login-password"
+                  type="password"
+                  name="password"
+                  value={formularioLogin.password}
+                  onChange={manejarCambioLogin}
+                  placeholder="Ingresa tu contrasena"
+                  autoComplete="current-password"
+                  required
+                />
+              </div>
+
+              {mensajeLogin && (
+                <p className="mensaje-login" role="alert">
+                  {mensajeLogin}
+                </p>
+              )}
+
+              <button type="submit" disabled={cargandoLogin}>
+                {cargandoLogin ? "Validando..." : "Iniciar sesion"}
+              </button>
+            </form>
+          </section>
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="app">
@@ -832,62 +930,17 @@ const guardarInscripcion = async (evento) => {
         <p>Administración académica</p>
       </header>
 
-<section className="tarjeta">
-  <h2>Iniciar sesión</h2>
+      <section className="sesion-activa">
+        <div>
+          <span>Sesion iniciada</span>
+          <strong>{usuarioActual.nombre}</strong>
+          <small>{usuarioActual.rol}</small>
+        </div>
 
-  <form onSubmit={iniciarSesion}>
-
-    <div className="grupo">
-      <label>Email</label>
-
-      <input
-        type="email"
-        value={formularioLogin.email}
-        onChange={(evento) =>
-          setFormularioLogin({
-            ...formularioLogin,
-            email: evento.target.value
-          })
-        }
-        required
-      />
-    </div>
-
-    <div className="grupo">
-      <label>Contraseña</label>
-
-      <input
-        type="password"
-        value={formularioLogin.password}
-        onChange={(evento) =>
-          setFormularioLogin({
-            ...formularioLogin,
-            password: evento.target.value
-          })
-        }
-        required
-      />
-    </div>
-
-    <button type="submit">
-      Iniciar sesión
-    </button>
-
-  </form>
-
-  {usuarioActual && (
-    <div className="usuario-logueado">
-      <p>
-        Sesión iniciada como: <strong>{usuarioActual.nombre}</strong>
-      </p>
-
-      <p>
-        Rol: <strong>{usuarioActual.rol}</strong>
-      </p>
-    </div>
-  )}
-
-</section>
+        <button type="button" onClick={cerrarSesion}>
+          Cerrar sesion
+        </button>
+      </section>
 
 <section className="tarjeta">
   <h2>Registrar usuario</h2>
