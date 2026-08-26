@@ -16,8 +16,9 @@ Proyecto_GestionAcademica/
 |   |-- models/       # Esquemas de Mongoose
 |   |-- routes/       # Rutas de la API
 |   `-- server.js     # Entrada del servidor Express
-|-- public/           # Recursos estaticos
-|-- src/              # Frontend React
+|-- frontend/
+|   |-- public/       # Recursos estaticos
+|   `-- src/          # Frontend React
 |-- docs/             # Guias de trabajo del equipo
 |-- .github/          # Plantillas para Issues y Pull Requests
 |-- .env.example      # Variables de entorno requeridas
@@ -37,7 +38,11 @@ npm install
 2. Crear el archivo `.env` a partir de `.env.example`:
 
 ```bash
+# Linux/macOS
 cp .env.example .env
+
+# Windows PowerShell
+Copy-Item .env.example .env
 ```
 
 3. Ajustar `MONGO_URI` si se usa una instancia distinta de MongoDB.
@@ -50,6 +55,9 @@ npm run server   # Levanta la API Express
 npm run build    # Genera build de produccion del frontend
 npm run lint     # Ejecuta ESLint
 ```
+
+Para ejecutar el backend y el frontend al mismo tiempo, abre dos terminales.
+El backend requiere una instancia de MongoDB disponible en `MONGO_URI`.
 
 ## Trabajo en equipo
 
